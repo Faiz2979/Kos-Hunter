@@ -1,10 +1,10 @@
 "use client";
-import { loginWithGoogle } from "@/utils/auth";
+import { loginWithGithub } from "@/utils/auth";
 
 export default function LoginPage() {
   const handleLogin = async () => {
     try {
-      const user = await loginWithGoogle();
+      const user = await loginWithGithub();
       console.log("Login success!");
       console.log("User data:", user)
     } catch (err) {

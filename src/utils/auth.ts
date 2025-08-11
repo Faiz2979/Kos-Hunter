@@ -81,9 +81,11 @@ export async function NormalLogin(email: string, password: string) {
 
     const userRef = doc(db, "users", user.uid);
     const userSnap = await getDoc(userRef);
+
     if (!userSnap.exists()) {
       throw new Error("User not found");
     }
+
     const returnedUser = {
       uid: user.uid,
       email: user.email,
@@ -109,6 +111,11 @@ export async function Register(email: string, password: string, namaLengkap: str
   const userRef = doc(db, "users", user.uid);
   const nameParts = namaLengkap.split(" ");
   const photoURL = `https://avatar.iran.liara.run/username?username=[${nameParts.join("+")}]`;
+
+  const userSnap = await getDoc(userRef);
+  if (userSnap.exists()) {
+    throw new Error("User already exists");
+  }
 
   await setDoc(userRef, {
     name: namaLengkap,
